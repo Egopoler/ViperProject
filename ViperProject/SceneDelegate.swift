@@ -17,11 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         print(1)
         let userRouter = UserRouter.start()
-//       let initialVC = userRouter.entry
-//        let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = initialVC
-//        self.window = window
-//        window.makeKeyAndVisible()
+        let initialVC = userRouter.entry
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = initialVC
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
