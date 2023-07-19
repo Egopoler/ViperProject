@@ -19,13 +19,18 @@ class UserRouter: AnyRouter {
         
         // here create VIP
         print("router-start")
-        var view: AnyViewController = ViewController()
-        var presenter: AnyPresenter = UserPresenter()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        print(2)
+        var view = storyboard.instantiateViewController(withIdentifier: "ViewController") as? EntryPoint
+        print("router-checkpoint")
+        // var view: AnyViewController = ViewController()
         var interactor: AnyInteractor = UserInteractor()
+        var presenter: AnyPresenter = UserPresenter()
         
-        view.presenter = presenter
+        view?.presenter = presenter
         
         interactor.presenter = presenter
+        
         
         presenter.interactor = interactor
         presenter.router = router

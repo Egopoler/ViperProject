@@ -1,9 +1,3 @@
-//
-//  AppDelegate.swift
-//  ViperProject
-//
-//  Created by MacBook Pro on 18.07.2023.
-//
 
 import UIKit
 

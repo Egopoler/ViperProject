@@ -6,7 +6,7 @@ protocol AnyViewController {
     
     func update(with users: [User])
     
-    func update(with error: Error)
+    func update(with error: String)
     
     
 }
@@ -14,21 +14,31 @@ protocol AnyViewController {
 
 class ViewController: UIViewController, AnyViewController {
     
-//    private let tableView: UITableView = {
-//        let table = UITableView()
-//        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-//        return table
-//    }()
     @IBOutlet weak var tableView: UITableView!
     
+    var users: [User] = []
     
     var presenter: AnyPresenter?
     
+    // static var myStoryboard: UIStoryboard?
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // ViewController.myStoryboard = storyboard
+        print("MyViewController has been initialized")
+    }
+    
     func update(with users: [User]) {
+        DispatchQueue.main.async {
+            self.users = users
+            self.tableView.reloadData()
+            self.tableView.isHidden = false
+        }
         
     }
     
-    func update(with error: Error) {
+    func update(with error: String) {
         
     }
     
@@ -40,7 +50,6 @@ class ViewController: UIViewController, AnyViewController {
                 
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.isHidden = false
         
     }
@@ -50,11 +59,13 @@ class ViewController: UIViewController, AnyViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = users[indexPath.row].name
+        return cell
     }
     
     
